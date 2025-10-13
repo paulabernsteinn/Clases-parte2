@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         borderCurve: 4
     },
     texto:{
+        fontWeight: "bold",
         textAlign:"center"
     }
 })
