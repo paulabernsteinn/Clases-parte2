@@ -10,25 +10,24 @@ class ProductsAll extends Component{
          this.state={
           data: []
         }}
+
 componentDidMount(){
       fetch('https://rickandmortyapi.com/api/character')
       .then((res) => res.json())
       .then((data) => {
           this.setState({
             data: data.results,
-            loading:false,
    });
  })
  .catch((error) => console.log(error));
-
-}
+};
 
     render(){
         return(
             <View style={styles.flatlist}>
                 <Text>Lista de productos</Text>
                 <FlatList 
-                    data={ this.state.array }
+                    data={ this.state.data }
                     keyExtractor={ item => item.id.toString() }
                     renderItem={ ({item}) => <Card info={item}/> }
                 />
