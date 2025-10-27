@@ -5,6 +5,8 @@ import Home from '../Screens/Home';
 import Profile from '../Screens/Profile';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Nuevopost from '../Screens/Nuevopost';
+import User from '../Screens/User';
 const Tab = createBottomTabNavigator();
 
 
@@ -19,6 +21,9 @@ function HomeMenu(){
                     {  headerShown: false ,  
                         tabBarIcon: () => <MaterialCommunityIcons name="face-woman-profile" size={24} color="black" /> }
                     }/>
+                <Tab.Screen name="Usuarios" component={ User } options={
+                    {  headerShown: false } } />
+          
             </Tab.Navigator>
 
     )

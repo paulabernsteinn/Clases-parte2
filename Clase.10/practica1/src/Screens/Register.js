@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Text, Pressable, StyleSheet, TextInput} from 'react-native';
 import { View } from 'react-native-web';
+import { db, auth } from '../Firebase/confirg';
 
 class Register extends Component{
    constructor(props){
@@ -12,11 +13,31 @@ class Register extends Component{
          }
    }
 
-   onSubmit() {
+   onSubmit(email,password, username) {
         console.log(this.state.email)
         console.log(this.state.username)
         console.log(this.state.password)
-   }
+
+
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then( response => {
+                console.log(response)
+                this.setState({registered: true});
+
+                db.collection('users').add({
+                    email: auth.currentUser.email,
+                    username: this.state.username,                    
+                    createdAt: Date.now(),
+                })
+                this.props.navigation.navigate('Login');
+
+            })     
+            .catch( error => {
+                console.log(error)                
+            })
+        }
+        
+
     render(){
     return(
         <View style={styles.contenedor}>
@@ -39,6 +60,8 @@ class Register extends Component{
             secureTextEntry={true} 
             onChangeText={ text => this.setState({password:text}) }
             value={this.state.password}/> 
+
+        
 
             <Pressable onPress={() => this.onSubmit()} style={styles.boton}>
                 <Text style={styles.textoboton}> Registrate </Text> 

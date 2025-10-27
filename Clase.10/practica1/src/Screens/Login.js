@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Text, Pressable, StyleSheet, TextInput} from 'react-native';
 import { View } from 'react-native-web';
+import { auth } from '../Firebase/confirg';
 
 class Login extends Component{
    constructor(props){
@@ -8,7 +9,8 @@ class Login extends Component{
          this.state={
             email: '',
             username: '',
-            password: ''
+            password: '',
+            error: ''
          }
    }
 
@@ -16,6 +18,26 @@ class Login extends Component{
         console.log(this.state.email)
         console.log(this.state.username)
         console.log(this.state.password)
+
+        if (!this.state.email.includes('@')) {
+            this.setState({error: 'Email mal formateado'})
+            return
+        }
+
+        else if (this.state.password.length < 6) {
+        this.setState({error: 'La password debe tener una longitud mínima de 6 caracteres'})
+            return
+        }
+
+        auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then((response) => {
+                this.setState({loggedIn: true});
+                this.props.navigation.navigate('HomeMenu'); 
+            })
+            .catch(error => {
+                this.setState({error: 'Credenciales inválidas.'})
+            })
+
    }
 
     render(){
@@ -35,6 +57,8 @@ class Login extends Component{
             secureTextEntry={true} 
             onChangeText={ text => this.setState({password:text}) }
             value={this.state.password}/> 
+
+            <Text>{this.state.error}</Text>
 
             <Pressable onPress={() => this.onSubmit()} style={styles.boton}>
                 <Text style={styles.textoboton}> Login </Text> 
