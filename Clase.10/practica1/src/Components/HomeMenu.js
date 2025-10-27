@@ -23,6 +23,8 @@ function HomeMenu(){
                     }/>
                 <Tab.Screen name="Usuarios" component={ User } options={
                     {  headerShown: false } } />
+                <Tab.Screen name="Nuevopost" component={ Nuevopost } options={
+                {  headerShown: false } } />
           
             </Tab.Navigator>
 
