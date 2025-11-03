@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, Pressable, TextInput } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { auth, db } from '../firebase/config'
-
+import { auth, db } from '../Firebase/confirg'
 
 
 class NuevoPost extends Component{
@@ -17,14 +16,10 @@ class NuevoPost extends Component{
 
   onSubmit(){
     this.setState({registered: true});
-this.props.navigation.navigate('Profile')
+    this.props.navigation.navigate('Profile')
       db.collection('posts').add({
-
         mensaje: this.state.mensaje,
         createdAt: Date.now(),
-
-
-
     })
 
     .then(res =>{
@@ -48,8 +43,7 @@ this.props.navigation.navigate('Profile')
           <Text> ADD POST </Text> 
         </Pressable>
         </View>
-   
-   
     )}}
+    
 
 export default NuevoPost
